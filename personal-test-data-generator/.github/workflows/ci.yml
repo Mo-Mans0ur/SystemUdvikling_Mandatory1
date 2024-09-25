@@ -22,9 +22,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
-        working-directory: personal-test-data-generator
+        run: |
+          cd personal-test-data-generator
+          npm install
 
       - name: Run tests
-        run: npm test
-        working-directory: personal-test-data-generator
+        run: |
+          cd personal-test-data-generator
+          npm test
