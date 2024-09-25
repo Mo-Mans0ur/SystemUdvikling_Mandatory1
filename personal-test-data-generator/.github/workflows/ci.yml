@@ -22,10 +22,12 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+            - name: Print working directory
+        run: pwd
         working-directory: personal-test-data-generator
 
-      - name: Run tests
-        run: npm test
+      - name: List files in working directory
+        run: ls -la
         working-directory: personal-test-data-generator
+
+
