@@ -16,6 +16,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          path: '.'
+
+      - name: Print current directory
+        run: pwd
+
+      - name: List files in current directory
+        run: ls -la
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -23,8 +31,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd personal-test-data-generator
+          npm install
 
       - name: Run tests
-        run: npm test
-
+        run: |
+          cd personal-test-data-generator
+          npm test
