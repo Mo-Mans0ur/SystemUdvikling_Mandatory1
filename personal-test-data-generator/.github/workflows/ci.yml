@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch: # allows manual trigger of workflow
   push:
     branches:
       - main
@@ -11,7 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -22,11 +22,9 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: |
-          cd personal-test-data-generator
-          npm install
+        run: npm install
+        working-directory: ./personal-test-data-generator
 
       - name: Run tests
-        run: |
-          cd personal-test-data-generator
-          npm test
+        run: npm test
+        working-directory: ./personal-test-data-generator
