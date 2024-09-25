@@ -12,10 +12,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
+      - name: Print current directory
+        run: pwd
+
+      - name: List files in current directory
+        run: ls -la
+
+      - name: List files in parent directory
+        run: ls -la ..
+
+      - name: List files in ../personal-test-data-generator
+        run: ls -la ../personal-test-data-generator
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -23,8 +36,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./personal-test-data-generator
+        working-directory: ../personal-test-data-generator
 
       - name: Run tests
         run: npm test
-        working-directory: ./personal-test-data-generator
+        working-directory: ../personal-test-data-generator
