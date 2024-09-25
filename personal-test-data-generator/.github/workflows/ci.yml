@@ -21,13 +21,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Change directory to project root
-        run: cd personal-test-data-generator
-
       - name: Install dependencies
         run: npm install
-        working-directory: personal-test-data-generator
+        working-directory: ./personal-test-data-generator
 
       - name: Run tests
         run: npm test
-        working-directory: personal-test-data-generator
+        working-directory: ./personal-test-data-generator
