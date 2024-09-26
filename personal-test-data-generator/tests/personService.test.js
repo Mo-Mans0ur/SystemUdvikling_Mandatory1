@@ -1,9 +1,9 @@
 // test/personService.test.js
 
-import { getRandomPerson } from '../services/personService.js';
-import { getRandomAddress } from '../services/addressService.js';
-import { generateFakeMobileNumber } from '../services/mobileService.js';
-import { generateRandomCPR } from '../services/cprService.js';
+import { getRandomPerson } from '../src/services/personService.js';
+import { getRandomAddress } from '../src/services/addressService.js';
+import { generateFakeMobileNumber } from '../src/services/mobileService.js';
+import { generateRandomCPR } from '../src/services/cprService.js';
 
 test('should return a random person with name and gender', () => {
     const person = getRandomPerson();
@@ -31,3 +31,5 @@ test('should return a random CPR number', async () => {
     const cpr = generateRandomCPR(person.gender);
     expect(cpr).toMatch(/^\d{6}-\d{4}$/);
 });
+
+console.log(process.env.DB_NAME);

@@ -3,7 +3,7 @@ import { generateFakeMobileNumber } from '../services/mobileService.js';
 
 
 // Read the person-names.json file and parse it into a JSON object
-const rawData = fs.readFileSync('./data/person-names.json', 'utf8');
+const rawData = fs.readFileSync('src/data/person-names.json', 'utf8');
 const persons = JSON.parse(rawData).persons;
 
 // Export a function that returns a random person name

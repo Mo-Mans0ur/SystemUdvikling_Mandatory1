@@ -1,7 +1,7 @@
 // test/api.test.js
 
 import request from 'supertest';
-import app from '../app.js';
+import app from '../src/app.js';
 
 let server;
 
