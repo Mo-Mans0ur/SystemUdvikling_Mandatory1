@@ -79,7 +79,7 @@ jobs:
         working-directory: personal-test-data-generator
         run: |
           mysql -h localhost -P 3306 -u root -ppassword testdb < scripts/schema.sql # if this dosnt work change scripts to db
-          mysql -h localhost -P 3306 -u root -ppassword testdb < scripts/seed.sql
+          mysql -h localhost -P 3306 -u root -ppassword testdb < scripts/seed.data.sql
 
       - name: Run tests
         run: |
