@@ -1,6 +1,7 @@
 // test/api.test.js
 
 import request from 'supertest';
+import db from '../src/db.js';
 import app from '../src/app.js';
 
 let server;
@@ -28,3 +29,8 @@ test('should return a random persons information', async () => {
     expect(res.body).toHaveProperty('mobileNumber');
     
 });
+
+afterAll(async () => {
+    // Close the database connection pool
+    await db.end();
+  });

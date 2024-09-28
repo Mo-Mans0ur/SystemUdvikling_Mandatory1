@@ -4,6 +4,9 @@ import { getRandomPerson } from '../src/services/personService.js';
 import { getRandomAddress } from '../src/services/addressService.js';
 import { generateFakeMobileNumber } from '../src/services/mobileService.js';
 import { generateRandomCPR } from '../src/services/cprService.js';
+import db from '../src/db.js';
+
+
 
 test('should return a random person with name and gender', () => {
     const person = getRandomPerson();
@@ -33,3 +36,8 @@ test('should return a random CPR number', async () => {
 });
 
 console.log(process.env.DB_NAME);
+
+afterAll(async () => {
+    // Close the database connection pool
+    await db.end();
+  });

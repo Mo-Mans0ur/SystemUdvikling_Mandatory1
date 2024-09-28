@@ -4,8 +4,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "test": "jest"
+    "start": "node src/server.js",
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
