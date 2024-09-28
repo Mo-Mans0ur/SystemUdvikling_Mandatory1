@@ -2,7 +2,7 @@ import express from 'express';
 import { getRandomPerson } from '../services/personService.js';
 import { getRandomAddress } from '../services/addressService.js';
 import { generateFakeMobileNumber } from '../services/mobileService.js';
-import { generateRandomCPR } from '../services/cprService.js';
+import { extractDateOfBirthFromCPR, generateRandomCPR } from '../services/cprService.js';
 
 // Create a new router
 const router = express.Router();
@@ -40,11 +40,13 @@ router.get('/full-info', async (req, res) => {
     const address = await getRandomAddress();
     const mobileNumber = await generateFakeMobileNumber();
     const cpr = generateRandomCPR(person.gender);
+    const dateOfBirth = extractDateOfBirthFromCPR(cpr);
 
 
     res.json({
         ...person,
-        cpr, 
+        cpr,
+        dateOfBirth,
         address,
         mobileNumber
     });

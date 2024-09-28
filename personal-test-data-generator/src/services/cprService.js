@@ -33,3 +33,26 @@ export function generateRandomCPR(gender) {
     return `${date}-${randomDigits}`;
 
 }
+
+export function extractDateOfBirthFromCPR(cpr) {
+    // CPR format: DDMMYY-XXXX
+    const day = cpr.substring(0, 2);
+    const month = cpr.substring(2, 4);
+    const year = cpr.substring(4, 6);
+    const centuryDigit = parseInt(cpr.charAt(7), 10); // The first digit after the hyphen
+  
+    let fullYear;
+  
+    // Determine century based on CPR rules (simplified version)
+    if (centuryDigit >= 0 && centuryDigit <= 3) {
+      fullYear = '19' + year;
+    } else if (centuryDigit >= 4 && centuryDigit <= 9) {
+      fullYear = '20' + year;
+    } else {
+      // Fallback to 1900s if centuryDigit is out of expected range
+      fullYear = '19' + year;
+    }
+  
+    // Return the date in 'ddmmyy' format
+    return `${day}${month}${year}`;
+  }
