@@ -58,8 +58,8 @@ jobs:
       - name: Set up database schema and seed data
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "CREATE DATABASE IF NOT EXISTS testdb;"
-          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < ../scripts/schema.sql
-          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < ../scripts/seed_data.sql
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < src/scripts/schema.sql
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < src/scripts/seed_data.sql
         working-directory: personal-test-data-generator
 
       - name: Run tests
