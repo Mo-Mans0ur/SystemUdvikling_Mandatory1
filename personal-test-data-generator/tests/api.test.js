@@ -7,7 +7,7 @@ let server;
 
 beforeAll((done) => {
     // Start the server before the tests
-    server = app.listen(4000);
+    server = app.listen(10000);
     console.log('server started');
     done();
 });

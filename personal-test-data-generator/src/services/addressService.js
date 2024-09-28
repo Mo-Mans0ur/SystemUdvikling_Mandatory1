@@ -3,9 +3,13 @@ import db from '../db.js';
 
 // Function to get a random address
 export async function getRandomAddress() {
+  try {
     const [rows] = await db.query('SELECT * FROM postal_code ORDER BY RAND() LIMIT 1');
-
-
+    
+    // Add error handling for empty query results
+    if (!rows || rows.length === 0) {
+      throw new Error('No postal code found in the database.');
+    }
 
     const street = generateRandomStreet();
     const number = Math.floor(Math.random() * 999) + 1;
@@ -13,13 +17,18 @@ export async function getRandomAddress() {
     const door = generateRandomDoor();
 
     return {
-        street,
-        number,
-        floor,
-        door,
-        townName: rows[0].cTownName,
-        postal_code: rows[0].cPostalCode
+      street,
+      number,
+      floor,
+      door,
+      townName: rows[0].cTownName,  // Assuming this is the correct column name
+      postal_code: rows[0].cPostalCode // Assuming this is the correct column name
     };
+  } catch (error) {
+    console.error('Error in getRandomAddress:', error);
+    throw error;
+  }
+
 
 
     function generateRandomStreet() {
