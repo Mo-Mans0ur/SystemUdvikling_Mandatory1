@@ -17,7 +17,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: testdb
         ports:
           - 3306:3306
@@ -30,14 +30,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          path: '.'
-
-      - name: Print current directory
-        run: pwd
-
-      - name: List files in current directory
-        run: ls -la
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -45,48 +37,36 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: |
-          cd personal-test-data-generator
-          npm install
-
-      - name: Install dependencies
-        run: |
-          cd personal-test-data-generator
-          npm install
-        env:
-          DB_HOST: 'localhost'
-          DB_USER: 'root'
-          DB_PASSWORD: 'password'
-          DB_NAME: 'testdb'
-          DB_PORT: '3306'
+        run: npm install
+        working-directory: personal-test-data-generator
 
       - name: Wait for MySQL to be ready
         run: |
           for i in {30..0}; do
-            if mysqladmin ping -h localhost -P 3306 --silent; then
-              echo "MySQL is ready!"  
+            if mysqladmin ping -h 127.0.0.1 -P 3306 --silent; then
+              echo "MySQL is up!"
               break
             fi
-              echo "MySQL is not ready, sleeping..."
-              sleep 1
+            echo 'Waiting for MySQL to start...'
+            sleep 1
           done
           if [ "$i" = 0 ]; then
-            echo 'MySQL did not start after 30 seconds'
+            echo 'MySQL did not start in time.'
             exit 1
           fi
 
       - name: Set up database schema and seed data
-        working-directory: personal-test-data-generator
         run: |
-          mysql -h localhost -P 3306 -u root -ppassword testdb < scripts/schema.sql # if this dosnt work change scripts to db
-          mysql -h localhost -P 3306 -u root -ppassword testdb < scripts/seed.data.sql
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "CREATE DATABASE IF NOT EXISTS testdb;"
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < scripts/schema.sql
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < scripts/seed_data.sql
+        working-directory: personal-test-data-generator
 
       - name: Run tests
-        run: |
-          cd personal-test-data-generator
-          npm test
+        run: npm test
+        working-directory: personal-test-data-generator
         env:
-          DB_HOST: 'localhost'
+          DB_HOST: '127.0.0.1'
           DB_USER: 'root'
           DB_PASSWORD: 'password'
           DB_NAME: 'testdb'
