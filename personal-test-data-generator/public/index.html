@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Test Data Generator</title>
+  </head>
+  <body>
+    <h1>Welcome to the Personal Test Data Generator!</h1>
+
+    <!-- Your Button -->
+    <button type="button" id="generatePersonButton">Generate Person</button>
+
+    <div id="personDetails">
+      <p><strong>Name:</strong> <span id="personName"></span></p>
+      <p><strong>CPR:</strong> <span id="personCPR"></span></p>
+      <p><strong>Gender:</strong> <span id="personGender"></span></p>
+      <p><strong>Address:</strong> <span id="personAddress"></span></p>
+      <p><strong>Mobile:</strong> <span id="personMobile"></span></p>
+    </div>
+
+    <script>
+      console.log("Script loaded");
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const button = document.getElementById("generatePersonButton");
+        console.log(button ? "Button found" : "Button not found");
+
+        // Attach the event listener only if the button is found
+        if (button) {
+          button.addEventListener("click", async () => {
+            console.log("Button is clicked");
+            const res = await fetch('/api/person/full-info');
+            const data = await res.json();
+            console.log("API Response:", data); // Log the response data
+
+            document.getElementById(
+              "personName"
+            ).innerText = `${data.name} ${data.surname}`;
+            document.getElementById("personCPR").innerText = data.cpr;
+            document.getElementById("personGender").innerText = data.gender;
+            document.getElementById(
+              "personAddress"
+            ).innerText = `${data.address.street}, ${data.address.number}`;
+            document.getElementById("personMobile").innerText = data.mobileNumber;
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

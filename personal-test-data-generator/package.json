@@ -12,9 +12,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "chromedriver": "^129.0.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
-    "mysql2": "^3.11.3"
+    "mysql2": "^3.11.3",
+    "selenium-webdriver": "^4.25.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
