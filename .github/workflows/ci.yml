@@ -74,3 +74,8 @@ jobs:
           DB_PASSWORD: 'password'
           DB_NAME: 'testdb'
           DB_PORT: '3306'
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+        working-directory: personal-test-data-generator
+          
