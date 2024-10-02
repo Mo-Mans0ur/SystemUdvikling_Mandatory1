@@ -7,7 +7,7 @@
     "start": "node src/server.js",
     "test": "jest --detectOpenHandles",
     "selenium": "node test/selenium.js",
-    "prepare": "[[ $CI ]] || husky install",
+    "prepare": "if [ \"$CI\" != \"true\" ]; then husky install; fi",
     "test:coverage": "jest --coverage"
   },
   "keywords": [],
