@@ -8,14 +8,14 @@ const persons = JSON.parse(rawData).persons;
 
 // Export a function that returns a random person name
 export function getRandomPerson() {
-    const randomIndex = Math.floor(Math.random() * persons.length);
-    const person = persons[randomIndex];
+  const randomIndex = Math.floor(Math.random() * persons.length);
+  const person = persons[randomIndex];
 
-    const mobileNumber = generateFakeMobileNumber();
+  const mobileNumber = generateFakeMobileNumber();
 
-    return {
-        ...person,
-        mobileNumber
-    };
+  return {
+    ...person,
+    mobileNumber
+  };
 
 }

@@ -1,0 +1,102 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #0e0c0c;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  height: auto;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 700px;
+  width: 100%;
+  margin: 80px auto;
+  text-align: center;
+  position: relative;
+}
+
+/* Ensure buttons and selectors don't interfere with content */
+button, select {
+  margin: 10px 0;
+}
+
+h1 {
+  color: #333;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.generate-btn {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.generate-btn:hover {
+  background-color: #45a049;
+}
+
+.person-details {
+  text-align: left;
+  margin-top: 100px;
+  line-height: 1.8;
+}
+
+.person-details p {
+  font-size: 18px;
+  margin: 5px 0;
+  margin-top: 60px;
+}
+
+.person-details span {
+  font-weight: bold;
+  color: #4caf50;
+}
+
+#bulkOptions {
+  display: none;
+}
+
+
+
+#scrollToTopButton {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #00a4d6;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+#scrollToTopButton:hover {
+  background-color: #555;
+}

@@ -30,6 +30,28 @@ test('should return a random persons information', async () => {
     
 });
 
+
+test('should return bulk persons information', async () => {
+    const count = 5;
+    const res = await request(app).get(`/api/person/bulk/${count}`).expect(200).expect('Content-Type', /json/);
+
+    expect(res.body.length).toBe(count);
+    res.body.forEach((person) => {
+        expect(person).toHaveProperty('name');
+        expect(person).toHaveProperty('address');
+        expect(person).toHaveProperty('cpr');
+        expect(person).toHaveProperty('mobileNumber');
+    });
+});
+
+test('should return error for invalid bulk count', async () => {
+    const res = await request(app)
+    .get('/api/person/bulk/1').expect(400);
+
+    expect(res.body).toHaveProperty('error');
+    expect(res.body.error).toBe('Invalid count. Count must be between 2 and 100');
+});
+
 afterAll(async () => {
     // Close the database connection pool
     await db.end();
