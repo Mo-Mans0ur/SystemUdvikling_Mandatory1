@@ -1,7 +1,9 @@
 // src/server.js
 import app from './app.js';
+import dotenv from 'dotenv';
 
-
+// Load environment variables from a .env file
+dotenv.config();
 
 const port = process.env.PORT || 8080;
 
