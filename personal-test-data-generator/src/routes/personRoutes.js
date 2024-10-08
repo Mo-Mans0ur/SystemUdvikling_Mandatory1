@@ -1,3 +1,4 @@
+// routes/personRoutes.js
 import express from 'express';
 import { getRandomPerson } from '../services/personService.js';
 import { getRandomAddress } from '../services/addressService.js';

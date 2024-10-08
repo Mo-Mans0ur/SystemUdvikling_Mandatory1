@@ -25,7 +25,7 @@ export function generateRandomCPR(gender) {
   // Ensure that the last digit matches gender (even for female, odd for males)
   if (gender === 'female' && randomDigits % 2 !== 0) {
     randomDigits++;
-  } else if (gender === 'male' && randomDigits % 2 !== 0) {
+  } else if (gender === 'male' && randomDigits % 2 === 0) {
     randomDigits--;
   }
 
