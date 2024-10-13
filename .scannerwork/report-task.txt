@@ -1,0 +1,7 @@
+organization=mo-mans0ur
+projectKey=SystemUdvikling_Mandatory1
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.57006
+dashboardUrl=https://sonarcloud.io/dashboard?id=SystemUdvikling_Mandatory1
+ceTaskId=AZKG1L-oFdI53ya1HYo4
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZKG1L-oFdI53ya1HYo4

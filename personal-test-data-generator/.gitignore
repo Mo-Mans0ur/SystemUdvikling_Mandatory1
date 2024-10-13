@@ -1,9 +1,6 @@
 # Logs
-logs
+logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Dependency directories
 node_modules/
@@ -11,25 +8,23 @@ node_modules/
 # Environment variables
 .env
 
-# Test output
-coverage/
+# Test output (Optional)
+# If you want SonarCloud to analyze your test coverage, you may want to remove `coverage/`
+# from the ignore list.
+#coverage/
 
-# IDE files
+# IDE-specific files
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
-
-# OS-generated files
-.DS_Store
-Thumbs.db
-
-# npm cache
-.npm/
 
 # Jest output
 /jest-test-results.json
 
 # Other
-*.lock
+.lock
 dist/
+.scannerwork/
+
+clover.xml
+coverage-final.json
+lcov.info

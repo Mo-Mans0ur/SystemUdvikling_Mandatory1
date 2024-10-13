@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testdb
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: personal-test-data-generator
+
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {30..0}; do
+            if mysqladmin ping -h 127.0.0.1 -P 3306 --silent; then
+              echo "MySQL is up!"
+              break
+            fi
+            echo 'Waiting for MySQL to start...'
+            sleep 1
+          done
+          if [ "$i" = 0 ]; then
+            echo 'MySQL did not start in time.'
+            exit 1
+          fi
+
+      - name: Set up database schema and seed data
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "CREATE DATABASE IF NOT EXISTS testdb;"
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < src/scripts/schema.sql
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword testdb < src/scripts/seed_data.sql
+        working-directory: personal-test-data-generator
+
+      - name: Run ESLint
+        run: npx eslint src/ --fix
+        working-directory: personal-test-data-generator
+
+      - name: Run tests
+        run: npm test
+        working-directory: personal-test-data-generator
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+        working-directory: personal-test-data-generator
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          
