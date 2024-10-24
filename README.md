@@ -86,7 +86,7 @@ The **Personal Test Data Generator** is an application that generates random per
 |--------|---------------------|----------------------------------------|
 | GET    | `/api/person`        | Get a single randomly generated person |
 | GET    | `/api/people/:count` | Get a list of randomly generated people|
-| POST   | `/api/generate`      | Generate a person with custom data     |
+
 
 
 ## Testing
